@@ -1,0 +1,21 @@
+{
+    "name": "awsbg/cloudcart",
+    "description": "Integration with the CloudCart API - cloudcart.com",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stoyan Stoimenov",
+            "email": "s.stoimenovbg@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Awsbg\\Cloudcart\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
