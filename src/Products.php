@@ -1,6 +1,7 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
+use Awsbg\Cloudcart\Redirect;
 class Products{
 
     private $client;
@@ -66,7 +67,6 @@ class Products{
      * $options is array
      * @return void
      */
-
     public function add_property_value($product_id, $options){
         foreach($options as $create_property){
             if(!empty($create_property)) {
@@ -78,6 +78,24 @@ class Products{
         }
         $data['data'] = $InsToProduct;
         $this->client->request('POST', 'products/'.$product_id.'/relationships/property-options', $data);
+    }
+
+    /**
+     * Remove property value to product
+     * $options is array
+     * @return void
+     */
+    public function remove_property_value($product_id, $options){
+        foreach($options as $create_property){
+            if(!empty($create_property)) {
+                $InsToProduct[] = array(
+                    'type' => 'property-options',
+                    'id' => strval($create_property),
+                );
+            }
+        }
+        $data['data'] = $InsToProduct;
+        $this->client->request('DELETE', 'products/'.$product_id.'/relationships/property-options', $data);
     }
 
 }

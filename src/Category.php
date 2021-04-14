@@ -1,7 +1,8 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 use App\Events\Mapping\CategoryCreate;
+use Awsbg\Cloudcart\Redirect;
 
 class Category{
 
@@ -31,13 +32,15 @@ class Category{
         } else {
             $result =  $this->store($name, '', $parent_id)['data'];
         }
-        event(new CategoryCreate([
-            'website_url' => $this->client->access['url'],
-            'platform' => 'cloudcart',
-            'category_id' => $result['id'],
-            'parent_id' => $parent_id,
-            'name' => $name
-        ]));
+        if($result['id'] > 0) {
+            event(new CategoryCreate([
+                'website_url' => $this->client->access['url'],
+                'platform' => 'cloudcart',
+                'category_id' => $result['id'],
+                'parent_id' => $parent_id,
+                'name' => $name
+            ]));
+        }
         return $result;
     }
     /**

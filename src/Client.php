@@ -1,6 +1,6 @@
 <?php
 
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 set_time_limit(0);
 
 use App\Http\Controllers\Errors\ErrorApiController;
@@ -48,7 +48,7 @@ class Client{
             } elseif($method == 'POST' || $method == 'PUT' || $method == 'PATCH'){
                 $response = $this->client->request($method, $endpoint,  [
                     'json' => $data,
-                    //'debug' => true,
+                   // 'debug' => true,
                     'headers' =>  [
                         'Content-Type' => 'application/vnd.api+json',
                         'Accept' => 'application/vnd.api+json',
@@ -57,7 +57,7 @@ class Client{
                 ]);
             } else {
                 $response = $this->client->request($method, $endpoint,  [
-                    //'debug' => true,
+                  //  'debug' => true,
                     'headers' =>  [
                         'Content-Type' => 'application/vnd.api+json',
                         'Accept' => 'application/vnd.api+json',
@@ -75,7 +75,8 @@ class Client{
             return json_decode($response->getBody()->getContents(), true);
         } catch (Exception $e) {
             // 404 Не ги записваме
-            if($e->getCode() != 404) {
+            if($e->getCode() != 404 && $endpoint != 'redirects' && $endpoint != 'webhooks') {
+                // За редирект и изображения ерорите също не ги записваме
                 ErrorApiController::store($this->access['url'], $this->access['key'], $method, $endpoint, $e->getResponse()->getBody(true), $data, $e->getCode());
                 echo 'An error has occurred, please check the error logs!' . PHP_EOL;
             }

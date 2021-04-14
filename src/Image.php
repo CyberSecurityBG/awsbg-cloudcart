@@ -1,5 +1,5 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 class Image{
 
@@ -43,8 +43,8 @@ class Image{
      *
      * @return void
      */
-    public function delete($product_id){
-
+    public function delete($image_id){
+        $this->client->request('DELETE', 'images/'.$image_id);
     }
 
 }

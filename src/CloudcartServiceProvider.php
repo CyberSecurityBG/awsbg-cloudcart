@@ -1,7 +1,7 @@
 <?php
 
 
-namespace cybercenter\cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 use Illuminate\Support\ServiceProvider;
 

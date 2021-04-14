@@ -1,7 +1,8 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 use App\Events\Mapping\VendorCreate;
+use Awsbg\Cloudcart\Redirect;
 
 class Vendors{
 

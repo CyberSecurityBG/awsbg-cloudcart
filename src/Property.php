@@ -1,5 +1,5 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 use App\Events\Mapping\PropertyCreate;
 

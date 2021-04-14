@@ -1,5 +1,5 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
+namespace Awsbg\Cloudcart;
 
 class Variant{
 
@@ -36,7 +36,6 @@ class Variant{
      */
     public function update($variant_id, $data){
         return $this->client->request('PATCH', 'variants/'.$variant_id, $data);
-
     }
 
     /**

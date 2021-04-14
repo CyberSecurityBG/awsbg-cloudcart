@@ -1,11 +1,11 @@
 <?php
-namespace Cybercenter\Cloudcart\src;
-
+namespace Awsbg\Cloudcart;
+use Awsbg\Cloudcart\Client;
 class Redirect{
 
     private $client;
 
-    public function __construct(Client $client)
+    public function __construct($client)
     {
         $this->client = $client;
     }
