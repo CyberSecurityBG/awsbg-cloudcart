@@ -28,7 +28,7 @@ class Client{
         $this->client = new GuzzleClient(['base_uri' => $url.'api/v2/']);
     }
 
-    public function request($method, $endpoint, $data = ''){
+    public function request($method, $endpoint, $data = '', $try = 1){
         if(Cache::get('cloudcart_limit') != null){
             $duration = convert_microtime(Cache::get('cloudcart_limit')-strtotime(Carbon::now('GMT')), 'seconds');
             echo 'The limit of requests to CloudCart has been reached, waiting time '.$duration.' seconds'.PHP_EOL;
@@ -48,7 +48,7 @@ class Client{
             } elseif($method == 'POST' || $method == 'PUT' || $method == 'PATCH'){
                 $response = $this->client->request($method, $endpoint,  [
                     'json' => $data,
-                   // 'debug' => true,
+                  //  'debug' => true,
                     'headers' =>  [
                         'Content-Type' => 'application/vnd.api+json',
                         'Accept' => 'application/vnd.api+json',
@@ -74,6 +74,10 @@ class Client{
             }
             return json_decode($response->getBody()->getContents(), true);
         } catch (Exception $e) {
+            if($e->getCode() == 500 && $try < 4){
+                sleep(3);
+                return $this->request($method, $endpoint, $data, $try+1);
+            }
             // 404 Не ги записваме
             if($e->getCode() != 404 && $endpoint != 'redirects' && $endpoint != 'webhooks') {
                 // За редирект и изображения ерорите също не ги записваме
