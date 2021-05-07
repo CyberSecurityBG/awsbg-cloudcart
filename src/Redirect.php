@@ -44,8 +44,8 @@ class Redirect{
      *
      * @return void
      */
-    public function delete($product_id){
-
+    public function delete($redirect_id){
+        $this->client->request('DELETE', 'redirects/'.$redirect_id);
     }
 
 }

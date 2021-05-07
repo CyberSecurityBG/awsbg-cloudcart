@@ -72,6 +72,9 @@ class Category{
      */
     public function store($name, $img_url = '', $parent_id = ''){
         if(!empty($name)) {
+            if(strlen($name) < 3){
+                $name = $name.' ';
+            }
             $data['data']['type'] = 'categories';
             $data['data']['attributes']['name'] = $name;
             if(!empty($img_url)){
@@ -82,7 +85,11 @@ class Category{
                 $data['data']['relationships']['parent']['data']['id'] = (string)$parent_id;
             }
             $create_category = $this->client->request('POST', 'categories', $data);
-            return $create_category;
+            if($create_category != false) {
+                return $create_category;
+            } else {
+                $this->get_or_create($name, $parent_id);
+            }
         }
     }
 

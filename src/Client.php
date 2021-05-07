@@ -38,7 +38,7 @@ class Client{
             if($method == 'GET'){
                 $response = $this->client->request($method, $endpoint,  [
                     'query' => $data ,
-                   // 'debug' => true,
+                 //   'debug' => true,
                     'headers' =>  [
                         'Content-Type' => 'application/vnd.api+json',
                         'Accept' => 'application/vnd.api+json',
@@ -76,7 +76,7 @@ class Client{
         } catch (Exception $e) {
             if($e->getCode() == 500 && $try < 4){
                 sleep(3);
-                return $this->request($method, $endpoint, $data, $try+1);
+                return false;
             }
             // 404 Не ги записваме
             if($e->getCode() != 404 && $endpoint != 'redirects' && $endpoint != 'webhooks') {
