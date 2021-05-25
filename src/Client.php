@@ -76,11 +76,10 @@ class Client{
         } catch (Exception $e) {
             if($e->getCode() == 500 && $try < 4){
                 sleep(3);
-                return false;
+                $this->request($method,  $endpoint, $data, $try+1);
             }
-            // 404 Не ги записваме
-            if($e->getCode() != 404 && $endpoint != 'redirects' && $endpoint != 'webhooks') {
-                // За редирект и изображения ерорите също не ги записваме
+            // За редирект и изображения ерорите също не ги записваме
+            if ($endpoint != 'redirects' && $endpoint != 'webhooks') {
                 ErrorApiController::store($this->access['url'], $this->access['key'], $method, $endpoint, $e->getResponse()->getBody(true), $data, $e->getCode());
                 echo 'An error has occurred, please check the error logs!' . PHP_EOL;
             }

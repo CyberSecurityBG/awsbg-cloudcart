@@ -19,13 +19,15 @@ class PropertyOption{
         } else {
             $id = $this->store($value, $property_id)['data']['id'];
         }
-        event(new PropertyOptionCreate([
-            'website_url' => $this->client->access['url'],
-            'platform' => 'cloudcart',
-            'value_id' => $id,
-            'property_id' => $property_id,
-            'value' => $value
-        ]));
+        if(isset($id) && !empty($id)) {
+            event(new PropertyOptionCreate([
+                'website_url' => $this->client->access['url'],
+                'platform' => 'cloudcart',
+                'value_id' => $id,
+                'property_id' => $property_id,
+                'value' => $value
+            ]));
+        }
         return $id;
     }
 

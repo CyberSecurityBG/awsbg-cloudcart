@@ -15,8 +15,8 @@ class Redirect{
      *
      * @return void
      */
-    public function get(){
-        dd('dasds');
+    public function get($filter, $value){
+        return $this->client->request('GET', 'redirects', ['filter['.$filter.']'=> $value]);
     }
 
     /**
@@ -35,7 +35,7 @@ class Redirect{
             case "blog": $data['data']['relationships']['item']['data']['type'] = 'blogs'; break;
             case "post": $data['data']['relationships']['item']['data']['type'] = 'posts'; break;
         }
-        $data['data']['relationships']['item']['data']['id'] = $id;
+        $data['data']['relationships']['item']['data']['id'] = (string)$id;
         return $this->client->request('POST', 'redirects', $data);
     }
 
@@ -47,5 +47,4 @@ class Redirect{
     public function delete($redirect_id){
         $this->client->request('DELETE', 'redirects/'.$redirect_id);
     }
-
 }

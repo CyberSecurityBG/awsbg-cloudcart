@@ -85,11 +85,7 @@ class Category{
                 $data['data']['relationships']['parent']['data']['id'] = (string)$parent_id;
             }
             $create_category = $this->client->request('POST', 'categories', $data);
-            if($create_category != false) {
-                return $create_category;
-            } else {
-                $this->get_or_create($name, $parent_id);
-            }
+            return $create_category;
         }
     }
 
